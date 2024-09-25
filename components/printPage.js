@@ -1,69 +1,73 @@
 import styled from "styled-components";
 import Actions from "./actions";
+import Dropper from "./Dropper";
+import PrintPhoto from "./PrintPhoto";
 
 const Wrapper = styled.div`
-  width: 600px;
-  margin: auto;
-  color: #585858;
+	width: 600px;
+	margin: auto;
+	color: #585858;
 `;
 
 const PrintWrapper = styled.div``;
 
 const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 `;
 
 const Title = styled.div`
-  font-style: normal;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 20px;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 20px;
 `;
 
 const PageLayout = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  background: #2778a5;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 17px 0 42px;
-  justify-content: space-between;
+	display: flex;
+	flex-wrap: wrap;
+	background: var(--color-blue);
+	border-radius: 8px;
+	padding: 20px;
+	margin: 17px 0 42px;
+	justify-content: space-between;
+	gap: 20px;
 `;
 
-const PrintPhoto = styled.div`
-  width: calc(50% - 10px);
+export default function PrintPage({ data, onHandleSwapItems }) {
+	const handleChildEvent = (a) => {
+		onHandleSwapItems(a);
+	};
 
-  img {
-    max-width: 100%;
-  }
-`;
-
-export default function PrintPage({ data }) {
-  return (
-    <>
-      <Wrapper>
-        {Object.values(data).map((entry, i) => {
-          return (
-            <PrintWrapper key={i}>
-              <Header>
-                <Title>{entry.title}</Title>
-                <Actions />
-              </Header>
-              <PageLayout>
-                {entry.images.map((image) => {
-                  return (
-                    <PrintPhoto key={image}>
-                      <img src={image} alt="" />
-                    </PrintPhoto>
-                  );
-                })}
-              </PageLayout>
-            </PrintWrapper>
-          );
-        })}
-      </Wrapper>
-    </>
-  );
+	return (
+		<>
+			<Wrapper>
+				<Dropper />
+				{Object.values(data).map((entry, indexPage) => {
+					return (
+						<PrintWrapper key={indexPage}>
+							<Header>
+								<Title>{entry.title}</Title>
+								<Actions />
+							</Header>
+							<PageLayout>
+								{entry.images?.map((image, indexPhoto) => {
+									return (
+										<PrintPhoto
+											key={`${image}-${indexPhoto}`}
+											src={image}
+											alt={`${entry.title} - random or custom title here`}
+											onHandleSwapItems={handleChildEvent}
+											itemLocation={[indexPage, indexPhoto]}
+										/>
+									);
+								})}
+							</PageLayout>
+						</PrintWrapper>
+					);
+				})}
+			</Wrapper>
+		</>
+	);
 }
