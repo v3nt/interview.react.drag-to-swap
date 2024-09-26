@@ -27,7 +27,7 @@ const useSwapImage = (originalPagesAndImages) => {
 	}, [swapWith]);
 
 	const swapImagesInData = () => {
-		const updatedImageLocations = pagesAndImages.map((page, pageIndex) => {
+		const updatedImageLocations = pagesAndImages.map((page) => {
 			const images = page.images.map((image) => {
 				if (image == swapWith[1]) {
 					return swapWith[0];
@@ -48,7 +48,7 @@ const useSwapImage = (originalPagesAndImages) => {
 		setSwapIndex([]);
 	};
 
-	return { swapItems, pagesAndImages, isDropperVisible };
+	return { swapItems, pagesAndImages, isDropperVisible, swapWith };
 };
 
 export default useSwapImage;

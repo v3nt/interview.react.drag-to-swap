@@ -38,7 +38,8 @@ const PageLayout = styled.div`
 `;
 
 export default function PrintPage({ data }) {
-	const { swapItems, pagesAndImages, isDropperVisible } = useSwapImage(data);
+	const { swapItems, pagesAndImages, isDropperVisible, swapWith } =
+		useSwapImage(data);
 
 	const [position, setPosition] = useState([0, 0]); // State to save the position where you clicked
 
@@ -54,22 +55,14 @@ export default function PrintPage({ data }) {
 				onMouseMove={(e) => handleClick(e)}
 				onDrag={(e) => handleClick(e)}
 			>
-				<Dropper />
+				<Dropper
+					left={position[0]}
+					top={position[1]}
+					isVisible={isDropperVisible}
+					imageSrc={swapWith[0]}
+				/>
 				{isDropperVisible}
-				<ul
-					className="menu"
-					style={{
-						display: isDropperVisible ? "block" : "none",
-						position: "absolute",
-						zIndex: 101,
-						left: position[0],
-						top: position[1],
-						transformX: "translateX(-50%)",
-						transformY: "translateY(-50%)",
-					}}
-				>
-					<li className="menu-item">Waldo</li>
-				</ul>
+
 				{Object.values(pagesAndImages).map((entry, indexPage) => {
 					return (
 						<PrintWrapper key={indexPage}>

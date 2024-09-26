@@ -1,55 +1,41 @@
 import styled from "styled-components";
-import { useState } from "react";
 
 const StyledDropper = styled.div`
-	outline: solid 1px red;
+	position: absolute;
+	z-index: 1001;
 `;
 
-// const Dropper = () => {
-// 	// const [{ opacity }, dragRef] = useDrag(
-// 	//   () => ({
-// 	//     type: ItemTypes.CARD,
-// 	//     item: { text },
-// 	//     collect: (monitor) => ({
-// 	//       opacity: monitor.isDragging() ? 0.5 : 1
-// 	//     })
-// 	//   }),
-// 	//   []
-// 	// )
+const DropperPreview = styled.div`
+	outline: solid 8px white;
+	border-radius: 100%;
+	background-color: yellow;
+	width: 90px;
+	height: 90px;
+	overflow: hidden;
+	transform: translateX(-50%) translateY(-120%);
+	box-shadow: 10px 10px 10px #333;
+	img {
+		width: auto;
+		height: 110%;
+	}
+`;
 
-// 	return (
-// 		<StyledDropper>TODO:will hold first selected image thumb </StyledDropper>
-// 	);
-// };
-
-const Dropper = () => {
-	const [isVisible, setIsVisible] = useState(false);
-	const [position, setPosition] = useState([0, 0]); // State to save the position where you clicked
-
-	const handleClick = (event) => {
-		setIsVisible((current) => !current);
-		setPosition([event.pageX, event.pageY]); // Save the pos where you clicked
-	};
-
+const Dropper = ({ left, top, isVisible, imageSrc }) => {
 	return (
-		<div className="gamepage" onClick={handleClick}>
-			{isVisible && (
-				<ul
-					className="menu"
-					style={{
-						position: "absolute",
-						zIndex: 101,
-						left: position[0],
-						top: position[1],
-						transform: "translateX(-50%)",
-						transform: "translateY(-50%)",
-					}}
-				>
-					<li className="menu-item">Waldo</li>
-				</ul>
-			)}
-			Dropper preview here
-		</div>
+		<StyledDropper
+			style={{
+				display: isVisible ? "inherit" : "none",
+				left: left + 10,
+				top: top - 10,
+			}}
+		>
+			<DropperPreview>
+				{imageSrc && (
+					// NB. Next/Image can't accept changing src
+					<img src={imageSrc} alt="Preview of image you are moving" />
+				)}
+			</DropperPreview>
+		</StyledDropper>
 	);
 };
 
