@@ -7,15 +7,23 @@ const useSwapImage = (originalPagesAndImages) => {
 	const [isDropperVisible, setIsDropperVisible] = useState(false);
 
 	const swapItems = (item) => {
-		const selectedImage = pagesAndImages[item[0]].images[item[1]];
+		const selectedImage = pagesAndImages[item[0]].images[item[1]].src;
+		setIsDropperVisible(true);
 
-		if (swapWith.length === 0) {
+		if (swapWith.length === 0 && swapWith[0] !== selectedImage) {
 			setSwapWith([selectedImage]);
 			setSwapIndex([item]);
-			setIsDropperVisible(true);
-		} else if (swapWith.length === 1 && swapWith[0] !== selectedImage) {
+		}
+	};
+
+	const swapItemsOnRelease = (item) => {
+		const selectedImage = pagesAndImages[item[0]].images[item[1]].src;
+		if (selectedImage !== swapWith[0]) {
 			setSwapWith([...swapWith, selectedImage]);
 			setSwapIndex([...swapIndex, item]);
+		} else {
+			// setSwapWith([]);
+			setIsDropperVisible(false);
 		}
 	};
 
@@ -29,14 +37,19 @@ const useSwapImage = (originalPagesAndImages) => {
 	const swapImagesInData = () => {
 		const updatedImageLocations = pagesAndImages.map((page) => {
 			const images = page.images.map((image) => {
-				if (image == swapWith[1]) {
-					return swapWith[0];
-				} else if (image == swapWith[0]) {
-					return swapWith[1];
-				} else {
-					return image;
-				}
+				const newSrc = (image) => {
+					if (image.src == swapWith[1]) {
+						return { ...image, src: swapWith[0] };
+					} else if (image.src == swapWith[0]) {
+						return { ...image, src: swapWith[1] };
+					} else {
+						return image;
+					}
+				};
+
+				return newSrc(image);
 			});
+			console.log("images", images);
 			return { ...page, images };
 		});
 
@@ -48,7 +61,13 @@ const useSwapImage = (originalPagesAndImages) => {
 		setSwapIndex([]);
 	};
 
-	return { swapItems, pagesAndImages, isDropperVisible, swapWith };
+	return {
+		swapItems,
+		pagesAndImages,
+		isDropperVisible,
+		swapWith,
+		swapItemsOnRelease,
+	};
 };
 
 export default useSwapImage;

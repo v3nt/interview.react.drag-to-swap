@@ -27,16 +27,19 @@ export default function PrintPhoto({
 	src,
 	alt,
 	onHandleSwapItems,
+	onReleaseSwapItems,
 	itemLocation,
 }) {
 	return (
 		<StyledPrintPhoto>
 			<ImageContainer
+				// user can click to set source and again for target.
+				// or user can drag source to target
 				onMouseDown={() => onHandleSwapItems(itemLocation)}
-				onMouseUp={() => onHandleSwapItems(itemLocation)}
+				onMouseUp={() => onReleaseSwapItems(itemLocation)}
 			>
 				<div className="inner">
-					<img src={src} alt={alt} draggable={false} />
+					<img src={src.src} alt={alt} draggable={false} />
 				</div>
 			</ImageContainer>
 

@@ -38,8 +38,13 @@ const PageLayout = styled.div`
 `;
 
 export default function PrintPage({ data }) {
-	const { swapItems, pagesAndImages, isDropperVisible, swapWith } =
-		useSwapImage(data);
+	const {
+		swapItems,
+		swapItemsOnRelease,
+		pagesAndImages,
+		isDropperVisible,
+		swapWith,
+	} = useSwapImage(data);
 
 	const [position, setPosition] = useState([0, 0]); // State to save the position where you clicked
 
@@ -61,7 +66,6 @@ export default function PrintPage({ data }) {
 					isVisible={isDropperVisible}
 					imageSrc={swapWith[0]}
 				/>
-				{isDropperVisible}
 
 				{Object.values(pagesAndImages).map((entry, indexPage) => {
 					return (
@@ -78,6 +82,7 @@ export default function PrintPage({ data }) {
 											src={image}
 											alt={`${entry.title} - random or custom title here`}
 											onHandleSwapItems={swapItems}
+											onReleaseSwapItems={swapItemsOnRelease}
 											itemLocation={[indexPage, indexPhoto]}
 										/>
 									);
