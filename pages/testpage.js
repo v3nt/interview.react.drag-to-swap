@@ -3,6 +3,7 @@ import PrintPage from "../components/printPage";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { originalPagesAndImages } from "../content/appDefaultContent";
+import useSwapImage from "../hooks/useSwapItems";
 
 const PageHeader = styled.div`
 	width: 600px;
@@ -27,55 +28,7 @@ const PageHeader = styled.div`
 `;
 
 export default function Testpage() {
-	const [pagesAndImages, setPagesAndImages] = useState(originalPagesAndImages);
-	const [swapWith, setSwapWith] = useState([]);
-	const [swapIndex, setSwapIndex] = useState([]);
-
-	const handleSwapItems = (a) => {
-		const selectedImage = pagesAndImages[a[0]].images[a[1]];
-
-		if (swapWith.length === 0) {
-			setSwapWith([selectedImage]);
-			setSwapIndex([a]);
-		} else if (swapWith.length === 1) {
-			setSwapWith([...swapWith, selectedImage]);
-			setSwapIndex([...swapIndex, a]);
-		}
-	};
-
-	useEffect(() => {
-		if (swapWith.length === 2) {
-			console.log("pagesAndImages", pagesAndImages);
-			swapImagesInData();
-		}
-	}, [swapWith]);
-
-	const swapImagesInData = () => {
-		const updatedImageLocations = pagesAndImages.map((page, pageIndex) => {
-			console.log("pageIndex", pageIndex, swapIndex[0][0], swapIndex[1][0]);
-			console.log("swapIndex", swapIndex);
-			//  && pageIndex !== swapIndex[1][0]
-			//  && pageIndex !== swapIndex[0][0]
-			const images = page.images.map((image) => {
-				if (image == swapWith[1]) {
-					return swapWith[0];
-				} else if (image == swapWith[0]) {
-					return swapWith[1];
-				} else {
-					return image;
-				}
-			});
-			return { ...page, images };
-		});
-
-		console.log(updatedImageLocations);
-		setPagesAndImages((pagesAndImages) => {
-			return [...updatedImageLocations];
-		});
-
-		setSwapWith([]);
-		setSwapIndex([]);
-	};
+	const { swapItems, pagesAndImages } = useSwapImage(originalPagesAndImages);
 
 	return (
 		<div>
@@ -89,7 +42,7 @@ export default function Testpage() {
 				<p>Hardback Photobook last edited on Thursday 13 April 2022 at 16:28</p>
 			</PageHeader>
 
-			<PrintPage onHandleSwapItems={handleSwapItems} data={pagesAndImages} />
+			<PrintPage onHandleSwapItems={swapItems} data={pagesAndImages} />
 		</div>
 	);
 }
