@@ -20,7 +20,6 @@ const StyledPrintPhoto = styled.div`
 
 const ImageContainer = styled.div`
 	/* width: calc(50% - 10px); */
-
 	/* overflow: hidden; */
 `;
 

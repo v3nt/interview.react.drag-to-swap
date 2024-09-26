@@ -1,7 +1,6 @@
 import Head from "next/head";
 import PrintPage from "../components/printPage";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
 import { originalPagesAndImages } from "../content/appDefaultContent";
 import useSwapImage from "../hooks/useSwapItems";
 
