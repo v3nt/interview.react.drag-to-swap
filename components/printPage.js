@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Actions from "./actions";
 import Dropper from "./Dropper";
 import PrintPhoto from "./PrintPhoto";
+import { useState } from "react";
+import useSwapImage from "../hooks/useSwapItems";
 
 const Wrapper = styled.div`
 	width: 600px;
@@ -35,16 +37,40 @@ const PageLayout = styled.div`
 	gap: 20px;
 `;
 
-export default function PrintPage({ data, onHandleSwapItems }) {
-	const handleChildEvent = (a) => {
-		onHandleSwapItems(a);
+export default function PrintPage({ data }) {
+	const { swapItems, pagesAndImages, isDropperVisible } = useSwapImage(data);
+
+	const [position, setPosition] = useState([0, 0]); // State to save the position where you clicked
+
+	const handleClick = (event) => {
+		setPosition([event.pageX, event.pageY]); // Save the pos where you clicked
 	};
 
 	return (
 		<>
-			<Wrapper>
+			<Wrapper
+				onMouseDown={(e) => handleClick(e)}
+				onMouseUp={(e) => handleClick(e)}
+				onMouseMove={(e) => handleClick(e)}
+				onDrag={(e) => handleClick(e)}
+			>
 				<Dropper />
-				{Object.values(data).map((entry, indexPage) => {
+				{isDropperVisible}
+				<ul
+					className="menu"
+					style={{
+						display: isDropperVisible ? "block" : "none",
+						position: "absolute",
+						zIndex: 101,
+						left: position[0],
+						top: position[1],
+						transformX: "translateX(-50%)",
+						transformY: "translateY(-50%)",
+					}}
+				>
+					<li className="menu-item">Waldo</li>
+				</ul>
+				{Object.values(pagesAndImages).map((entry, indexPage) => {
 					return (
 						<PrintWrapper key={indexPage}>
 							<Header>
@@ -58,7 +84,7 @@ export default function PrintPage({ data, onHandleSwapItems }) {
 											key={`${image}-${indexPhoto}`}
 											src={image}
 											alt={`${entry.title} - random or custom title here`}
-											onHandleSwapItems={handleChildEvent}
+											onHandleSwapItems={swapItems}
 											itemLocation={[indexPage, indexPhoto]}
 										/>
 									);

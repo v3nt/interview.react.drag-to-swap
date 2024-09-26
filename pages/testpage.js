@@ -2,7 +2,6 @@ import Head from "next/head";
 import PrintPage from "../components/printPage";
 import styled from "styled-components";
 import { originalPagesAndImages } from "../content/appDefaultContent";
-import useSwapImage from "../hooks/useSwapItems";
 
 const PageHeader = styled.div`
 	width: 600px;
@@ -27,7 +26,9 @@ const PageHeader = styled.div`
 `;
 
 export default function Testpage() {
-	const { swapItems, pagesAndImages } = useSwapImage(originalPagesAndImages);
+	// onMouseDown if first image selected show picker
+	// follow mouse
+	// onMouseUp pick destination target
 
 	return (
 		<div>
@@ -41,7 +42,7 @@ export default function Testpage() {
 				<p>Hardback Photobook last edited on Thursday 13 April 2022 at 16:28</p>
 			</PageHeader>
 
-			<PrintPage onHandleSwapItems={swapItems} data={pagesAndImages} />
+			<PrintPage data={originalPagesAndImages} />
 		</div>
 	);
 }

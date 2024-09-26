@@ -31,9 +31,9 @@ export default function PrintPhoto({
 }) {
 	return (
 		<StyledPrintPhoto>
-			<ImageContainer onClick={() => onHandleSwapItems(itemLocation)}>
+			<ImageContainer onMouseDown={() => onHandleSwapItems(itemLocation)}>
 				<div className="inner">
-					<img src={src} alt={alt} />
+					<img src={src} alt={alt} draggable={false} />
 				</div>
 			</ImageContainer>
 
