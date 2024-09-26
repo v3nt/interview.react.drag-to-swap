@@ -9,10 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "eslint-plugin-prettier": "^5.2.1",
     "next": "^14.2.13",
     "prettier": "^3.3.3",
-    "react": "18.1.0",
-    "react-dom": "18.1.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
