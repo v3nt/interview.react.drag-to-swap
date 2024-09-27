@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Actions from "./actions";
+import Actions from "./Actions";
 import Dropper from "./Dropper";
 import PrintPhoto from "./PrintPhoto";
 import { useState } from "react";

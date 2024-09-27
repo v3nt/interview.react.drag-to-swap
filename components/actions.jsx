@@ -23,7 +23,7 @@ const ButtonMenu = styled(Icon)``;
 export default function Actions() {
 	return (
 		<>
-			<StyledActions>
+			<StyledActions data-testid="actions">
 				<ButtonLayout>
 					<svg
 						width="24"

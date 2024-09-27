@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 
 import PrintPhoto from "../PrintPhoto";
 import { describe } from "vitest";
@@ -16,13 +16,11 @@ const props = {
 
 describe("PrintPhoto", () => {
 	const onClick = vi.fn();
-	const component = render(
-		<PrintPhoto image={props.image} onHandleSwapItems={onClick} />
-	);
+	render(<PrintPhoto image={props.image} onHandleSwapItems={onClick} />);
+
+	const card = screen.getByTestId("card");
 
 	it("Has a card element", () => {
-		expect(screen.getByTestId("card")).toBeDefined();
+		expect(card).toBeDefined();
 	});
-
-	// test for events here
 });
