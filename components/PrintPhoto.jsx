@@ -33,7 +33,7 @@ const Card = styled.div`
 	}
 `;
 
-const ImageNew = styled.div`
+const ImageNew = styled.img`
 	position: absolute;
 `;
 
@@ -71,7 +71,7 @@ export default function PrintPhoto({
 				onTouchEnd={() => onReleaseSwapItems(itemLocation)}
 				onMouseUp={() => onReleaseSwapItems(itemLocation)}
 			>
-				<Card className={image.selected && "selected"}>
+				<Card className={image.selected && "selected"} data-testid="card">
 					{/* need to transition between image src change */}
 					{newImage && image.target && (
 						<ImageNew src={newImage.src} alt={alt} draggable={false} />

@@ -70,7 +70,10 @@ export default function PrintPage({ data }) {
 
 				{Object.values(pagesAndImages).map((entry, indexPage) => {
 					return (
-						<PrintWrapper key={indexPage}>
+						<PrintWrapper
+							key={indexPage}
+							data-testid={`print-wrapper-item-${indexPage}`}
+						>
 							<Header>
 								<Title>{entry.title}</Title>
 								<Actions />

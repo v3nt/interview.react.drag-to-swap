@@ -1,5 +1,5 @@
 import Head from "next/head";
-import PrintPage from "../components/printPage";
+import PrintPage from "../components/PrintPage";
 import styled from "styled-components";
 import { originalPagesAndImages } from "../content/appDefaultContent";
 

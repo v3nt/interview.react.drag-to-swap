@@ -23,6 +23,7 @@ const DropperPreview = styled.div`
 const Dropper = ({ left, top, isVisible, imageSrc }) => {
 	return (
 		<StyledDropper
+			data-test-id="styled-dropper"
 			style={{
 				display: isVisible ? "inherit" : "none",
 				left: left + 10,
