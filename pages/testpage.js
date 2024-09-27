@@ -26,10 +26,6 @@ const PageHeader = styled.div`
 `;
 
 export default function Testpage() {
-	// onMouseDown if first image selected show picker
-	// follow mouse
-	// onMouseUp pick destination target
-
 	return (
 		<div>
 			<Head>

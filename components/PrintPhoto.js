@@ -33,10 +33,6 @@ const Card = styled.div`
 	}
 `;
 
-const Inner = styled.div`
-	position: relative;
-`;
-
 const ImageNew = styled.div`
 	position: absolute;
 `;
@@ -76,13 +72,11 @@ export default function PrintPhoto({
 				onMouseUp={() => onReleaseSwapItems(itemLocation)}
 			>
 				<Card className={image.selected && "selected"}>
-					<Inner>
-						{/* need to transition between image src change */}
-						{newImage && image.target && (
-							<ImageNew src={newImage.src} alt={alt} draggable={false} />
-						)}
-						<img src={image.src} alt={alt} draggable={false} />
-					</Inner>
+					{/* need to transition between image src change */}
+					{newImage && image.target && (
+						<ImageNew src={newImage.src} alt={alt} draggable={false} />
+					)}
+					<img src={image.src} alt={alt} draggable={false} />
 				</Card>
 			</ImageContainer>
 		</StyledPrintPhoto>
