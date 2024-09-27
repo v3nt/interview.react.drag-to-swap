@@ -7,27 +7,32 @@ const useSwapImage = (originalPagesAndImages) => {
 	const [isDropperVisible, setIsDropperVisible] = useState(false);
 
 	const swapItems = (item) => {
-		const selectedImage = pagesAndImages[item[0]].images[item[1]].src;
+		const selectedImage = pagesAndImages[item[0]].images[item[1]];
+		selectedImage.selected = true;
+
 		setIsDropperVisible(true);
 
-		if (swapWith.length === 0 && swapWith[0] !== selectedImage) {
-			setSwapWith([selectedImage]);
+		if (swapWith.length === 0 && swapWith[0] !== selectedImage.src) {
+			setSwapWith([selectedImage.src]);
 			setSwapIndex([item]);
 		}
 	};
 
 	const swapItemsOnRelease = (item) => {
-		const selectedImage = pagesAndImages[item[0]].images[item[1]].src;
-		if (selectedImage !== swapWith[0]) {
-			setSwapWith([...swapWith, selectedImage]);
+		const targetImage = pagesAndImages[item[0]].images[item[1]];
+
+		if (targetImage.src !== swapWith[0]) {
+			setSwapWith([...swapWith, targetImage.src]);
 			setSwapIndex([...swapIndex, item]);
+
+			targetImage.target = true;
 		} else {
-			// setSwapWith([]);
 			setIsDropperVisible(false);
 		}
 	};
 
 	useEffect(() => {
+		// only works with 2 images so reset ready for next swap
 		if (swapWith.length === 2) {
 			swapImagesInData();
 			setIsDropperVisible(false);
@@ -39,9 +44,9 @@ const useSwapImage = (originalPagesAndImages) => {
 			const images = page.images.map((image) => {
 				const newSrc = (image) => {
 					if (image.src == swapWith[1]) {
-						return { ...image, src: swapWith[0] };
+						return { ...image, src: swapWith[0], selected: false };
 					} else if (image.src == swapWith[0]) {
-						return { ...image, src: swapWith[1] };
+						return { ...image, src: swapWith[1], selected: false };
 					} else {
 						return image;
 					}
@@ -49,7 +54,6 @@ const useSwapImage = (originalPagesAndImages) => {
 
 				return newSrc(image);
 			});
-			console.log("images", images);
 			return { ...page, images };
 		});
 

@@ -1,23 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 # Popsa.com - React Frontend test skeleton
 
 ## Getting Started
 
-Run the development server:
+### Installation
 
 ```bash
-npm run dev
+pnpm i
 # or
-yarn dev
+npm i
+```
+
+### Run the development server:
+
+```bash
+pnpm dev
+# or
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Notes
 
-Feel free to modify the source code in anyway that you see fit.
-
----
-
-<sup>Popsa.com</sup>
+No .env or access to external service needed

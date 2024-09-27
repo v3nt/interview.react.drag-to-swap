@@ -25,19 +25,5 @@ export const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
 
-    
-    
-    /* Animations */
-    @keyframes frame {
-        0% {
-   
-            box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
-            transition: box-shadow 0.2s ease-in-out;
-        }
-
-        100% {
-            box-shadow: 0 0 0 0 rgba(100, 100, 0, 0.7);
-
-        }
-    } 
+ 
 `;

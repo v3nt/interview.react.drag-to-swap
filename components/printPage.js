@@ -48,17 +48,18 @@ export default function PrintPage({ data }) {
 
 	const [position, setPosition] = useState([0, 0]); // State to save the position where you clicked
 
-	const handleClick = (event) => {
+	const handleMouseMove = (event) => {
 		setPosition([event.pageX, event.pageY]); // Save the pos where you clicked
 	};
 
 	return (
 		<>
 			<Wrapper
-				onMouseDown={(e) => handleClick(e)}
-				onMouseUp={(e) => handleClick(e)}
-				onMouseMove={(e) => handleClick(e)}
-				onDrag={(e) => handleClick(e)}
+				onMouseDown={(e) => handleMouseMove(e)}
+				onMouseUp={(e) => handleMouseMove(e)}
+				onMouseMove={(e) => handleMouseMove(e)}
+				onTouchStart={(e) => handleMouseMove(e)}
+				onDrag={(e) => handleMouseMove(e)}
 			>
 				<Dropper
 					left={position[0]}
@@ -79,7 +80,7 @@ export default function PrintPage({ data }) {
 									return (
 										<PrintPhoto
 											key={`${image}-${indexPhoto}`}
-											src={image}
+											image={image}
 											alt={`${entry.title} - random or custom title here`}
 											onHandleSwapItems={swapItems}
 											onReleaseSwapItems={swapItemsOnRelease}
