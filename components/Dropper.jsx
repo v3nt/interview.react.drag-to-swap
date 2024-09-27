@@ -8,12 +8,13 @@ const StyledDropper = styled.div`
 const DropperPreview = styled.div`
 	outline: solid 8px white;
 	border-radius: 100%;
-	background-color: yellow;
+	background-color: #cecece;
 	width: 90px;
 	height: 90px;
 	overflow: hidden;
 	transform: translateX(-50%) translateY(-120%);
 	box-shadow: 10px 10px 10px #333;
+
 	img {
 		width: auto;
 		height: 110%;
