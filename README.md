@@ -1,4 +1,4 @@
-# Popsa.com - React Frontend test skeleton
+# React Frontend test skeleton
 
 ## Getting Started
 
