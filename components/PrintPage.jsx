@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Actions from "./Actions";
 import Dropper from "./Dropper";
-import PrintPhoto from "./PrintPhoto";
+import PrintPhoto from "./PrintPhoto/index";
 import { useState } from "react";
 import useSwapImage from "../hooks/useSwapItems";
 
