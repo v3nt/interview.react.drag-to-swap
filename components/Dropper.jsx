@@ -12,7 +12,7 @@ const DropperPreview = styled.div`
 	width: 90px;
 	height: 90px;
 	overflow: hidden;
-	transform: translateX(-50%) translateY(-120%);
+	transform: translateX(-50%) translateY(-110%);
 	box-shadow: 10px 10px 10px #333;
 
 	img {

@@ -7,18 +7,17 @@ const StyledPrintPhoto = styled.div`
 		max-width: 100%;
 		margin-bottom: -4px;
 	}
+	@property --s {
+		syntax: "<percentage>";
+		inherits: false;
+		initial-value: 0%;
+	}
 `;
 
-const ImageContainer = styled.div`
-	position: relative;
-`;
-
-const HoverAnimation = keyframes`
-  from { transform: scale(1) }
-  to { transform:  scale(1.1.3) }
-`;
+const ImageContainer = styled.div``;
 
 const Card = styled.div`
+	position: relative;
 	&:hover {
 		cursor: pointer;
 		outline: solid 3px white;
@@ -29,12 +28,38 @@ const Card = styled.div`
 		outline: solid 8px white;
 		box-shadow: 10px 10px 10px #333;
 		background-color: white;
-		animation: ${HoverAnimation} 333ms ease-in-out forwards;
 	}
 `;
 
+const AnimateMask = keyframes`
+	0% {
+    --s:0%;
+  }
+  50% {
+    --s:50%;
+  }
+  100% {
+    --s:100%;
+  }`;
+
 const ImageNew = styled.img`
 	position: absolute;
+	top: 0px;
+	left: 0px;
+	mask-image: radial-gradient(
+		circle at 50% 50%,
+		black var(--s),
+		rgba(0, 0, 0, 0.1) 0%
+	);
+	mask-position: 50% 50%;
+	mask-repeat: no-repeat;
+	mask-size: 100%;
+	animation: ${AnimateMask} 340ms forwards 1 ease-in-out;
+	/* border: red solid 5px; */
+`;
+
+const ImageOriginal = styled.img`
+	opacity: 1;
 `;
 
 export default function PrintPhoto({
@@ -44,21 +69,35 @@ export default function PrintPhoto({
 	onReleaseSwapItems,
 	itemLocation,
 }) {
-	const [newImage, setNewImage] = useState("");
+	const [newImage, setNewImage] = useState({ src: undefined, selected: false });
+	const [originalImage, setOriginalImage] = useState({});
+	const [showTransition, setShowTransition] = useState(false);
 
-	useEffect(
-		(oldValue) => {
-			// to trigger animation from one img to another
-			setNewImage(image);
+	useEffect(() => {
+		setNewImage(image);
+
+		if (!originalImage.src) {
+			setOriginalImage(image);
+		}
+
+		if (
+			originalImage.src &&
+			originalImage.src !== image.src &&
+			!originalImage.selected
+		) {
 			newImageTransition();
-		},
-		[image]
-	);
+			console.log("call newImageTransition");
+		} else {
+			setOriginalImage(image);
+		}
+	}, [image]);
 
 	const newImageTransition = () => {
-		// TODO: needs finishing
-		// save old image, new image placed over at 0% opacity
-		// also needs a circle mask and 0px, animate the mask out
+		setShowTransition(true);
+		setTimeout(() => {
+			setShowTransition(false);
+			setOriginalImage(image);
+		}, 666);
 	};
 
 	return (
@@ -72,11 +111,17 @@ export default function PrintPhoto({
 				onMouseUp={() => onReleaseSwapItems(itemLocation)}
 			>
 				<Card className={image.selected && "selected"} data-testid="card">
-					{/* need to transition between image src change */}
-					{newImage && image.target && (
+					{showTransition && (
 						<ImageNew src={newImage.src} alt={alt} draggable={false} />
 					)}
-					<img src={image.src} alt={alt} draggable={false} />
+
+					{originalImage.src && (
+						<ImageOriginal
+							src={originalImage.src}
+							alt={alt}
+							draggable={false}
+						/>
+					)}
 				</Card>
 			</ImageContainer>
 		</StyledPrintPhoto>
