@@ -3,7 +3,6 @@ import {
 	StyledPrintPhoto,
 	ImageContainer,
 	Card,
-	AnimateMask,
 	ImageNew,
 	ImageOriginal,
 } from "./styles";
